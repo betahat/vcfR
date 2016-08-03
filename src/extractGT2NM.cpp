@@ -331,7 +331,11 @@ NumericMatrix CM_to_NM(CharacterMatrix x) {
 //      if(ISNA(x(j, i))){
         nm(j, i) = NA_REAL;
       } else {
-        nm(j, i) = atof(x(j, i));
+        if (strlen(x(j,i)) == 3 && (x(j, i)[1] == '|' || x(j, i)[1] == '/')) {
+          nm(j, i) = double(int(x(j, i)[0] - '0') + int(x(j, i)[2] - '0'));
+        } else {
+          nm(j, i) = atof(x(j, i));
+        }
       }
     }
   }
